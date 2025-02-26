@@ -115,9 +115,26 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
+Draw histogram of Sale Price:
+
+``` r
+library(ggplot2)
+ggplot(ames, aes(`Sale Price`)) +
+  geom_histogram(binwidth = 50000)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
 ## Step 4
 
-Kylie:
+Kylie: TotalLivingArea
+
+``` r
+ggplot(ames, aes(`TotalLivingArea (sf)`)) +
+  geom_histogram(binwidth = 100, na.rm = TRUE)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Lucas:
 
