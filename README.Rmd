@@ -24,8 +24,17 @@ Inspect first few lines of dataset:
 library(classdata)
 head(ames)
 ```
+<<<<<<< HEAD
 
 The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sale Price, Multi Sale, Year Built, Acres, TotalLivingArea (sf), Bedrooms, FinishedBsmtArea (sf), LotArea (sf), AC, FirePlace, and Neighborhood.
+=======
+The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sale Price, Multi Sale (if the sale was a package deal), Year Built, Acres, TotalLivingArea (sf), Bedrooms, FinishedBsmtArea (sf), LotArea (sf), AC (if the property has AC), FirePlace (if the property has a fireplace), and Neighborhood.
+
+The type of variable and their data range can be pictured with summary(ames):
+```{r}
+summary(ames)
+```
+>>>>>>> 8c154ebeadc3df96413993545244b107c65cab7d
 
 ## Step 2
 
