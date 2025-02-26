@@ -113,14 +113,12 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
 
 ![](README_files/figure-gfm/step4.1-1.png)<!-- -->
 
-\<\<\<\<\<\<\< HEAD Most properties cluster under 2,000 square feet of
-finished basement area. Most of the points lie at or near zero sale
-price, which is unusual and may represent non-market transactions, data
-entry errors, or special cases. At the higher end, there are outliers
-with very large basement areas or exceptionally high sale prices that
-also warrant further investigation.
-
-# Aiden:
+Most properties cluster under 2,000 square feet of finished basement
+area. Most of the points lie at or near zero sale price, which is
+unusual and may represent non-market transactions, data entry errors, or
+special cases. At the higher end, there are outliers with very large
+basement areas or exceptionally high sale prices that also warrant
+further investigation.
 
 Aiden: Range = 12.01
 
@@ -155,5 +153,3 @@ ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
     ## (`geom_point()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-
-> > > > > > > 3b9b5cc9aad96aad44d69b6c7021eb1260c47991
