@@ -4,19 +4,17 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Lab report #1
 
-Follow the instructions posted at https://ds202-at-isu.github.io/labs.html for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
+Follow the instructions posted at <https://ds202-at-isu.github.io/labs.html> for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
 
-Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.  
+Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.
 
-All submissions to the github repo will be automatically uploaded for grading once the due date is passed.
-Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
+All submissions to the github repo will be automatically uploaded for grading once the due date is passed. Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
 
 ## Step 1
 
@@ -26,6 +24,7 @@ Inspect first few lines of dataset:
 library(classdata)
 head(ames)
 ```
+
 The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sale Price, Multi Sale, Year Built, Acres, TotalLivingArea (sf), Bedrooms, FinishedBsmtArea (sf), LotArea (sf), AC, FirePlace, and Neighborhood.
 
 ## Step 2
@@ -34,10 +33,39 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
+```{r setup}
+summary(ames$`Sale Price`)
 
+ggplot(ames, aes(x = `Sale Price`)) +
+  geom_histogram(binwidth = 50000, fill = "skyblue", color = "black") +
+  labs(title = "Histogram of Sale Price", x = "Sale Price", y = "Count")
+```
+
+When we look at the summary() function we have:
+
+Min. 0
+
+1st Qu. 0
+
+Median 170900
+
+Mean 1017479
+
+3rd Qu. 280000
+
+Max. 20500000
+
+This tells us that while most properties fall within a modest range, there are some extreme values up to 20.5 million, and notably, a minimum of 0, which is unusual for a sales price.
+
+The histogram typically shows a right-skewed distribution. It means that most properties are sold at lower prices.
+
+A oddity is that the minimum sale price is 0, and the first quartile is also 0. This suggests that a significant number of records have a sale price of 0.
+
+It might indicate data entry errors.
+
+These could represent properties transferred without a sale.
 
 ## Step 4
-
 
 Kylie:
 
