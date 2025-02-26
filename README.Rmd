@@ -17,3 +17,30 @@ Include your answers in this document (Rmd file). Make sure that it knits proper
 
 All submissions to the github repo will be automatically uploaded for grading once the due date is passed.
 Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
+
+## Step 1
+
+Inspect first few lines of dataset:
+
+```{r}
+library(classdata)
+head(ames)
+```
+The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sale Price, Multi Sale, Year Built, Acres, TotalLivingArea (sf), Bedrooms, FinishedBsmtArea (sf), LotArea (sf), AC, FirePlace, and Neighborhood.
+
+## Step 2
+
+The variable of interest is Sale Price.
+
+## Step 3
+
+
+
+## Step 4
+
+
+Kylie:
+
+Lucas:
+
+Aiden:
