@@ -191,7 +191,16 @@ oddities, such as plots selling for free and the handful of outliers
 that sold for ridiculous prices. However, the general pattern is
 positive and moderately linear.
 
-Lucas:
+Lucas: FinishedBsmtArea
+
+Find range of FinishedBsmtArea:
+
+``` r
+summary(ames$`FinishedBsmtArea (sf)`)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    ##    10.0   474.0   727.0   776.7  1011.0  6496.0    2682
 
 ``` r
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
@@ -246,7 +255,7 @@ ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
     ## Warning: Removed 89 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 #With outliars and 0's removed (Todo)
@@ -259,8 +268,4 @@ ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
     ## Warning: Removed 89 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-<<<<<<< HEAD
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-=======
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
->>>>>>> 69ea7487ccb5ebe782f195adadb2d98c403df13c
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
