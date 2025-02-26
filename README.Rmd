@@ -20,8 +20,9 @@ All submissions to the github repo will be automatically uploaded for grading on
 
 Inspect first few lines of dataset:
 
-```{r}
+```{r dataset, include = FALSE}
 library(classdata)
+library(ggplot2)
 head(ames)
 ```
 
@@ -29,7 +30,7 @@ The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sal
 
 The type of variable and their data range can be pictured with summary(ames):
 
-```{r}
+```{r data, include = FALSE}
 summary(ames)
 ```
 
@@ -39,7 +40,7 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
-```{r setup}
+```{r step3, include = TRUE}
 summary(ames$`Sale Price`)
 
 ggplot(ames, aes(x = `Sale Price`)) +
@@ -77,7 +78,7 @@ Kylie:
 
 Lucas:
 
-```{r setup}
+```{r step4, include = TRUE}
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
   geom_histogram(binwidth = 100, fill = "lightgreen", color = "black") +
   labs(title = "Histogram of Finished Bsmt Area (sf)",
@@ -85,9 +86,10 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
        y = "Count")
 ```
 
-```{r setup}
+```{r step4.1, include = TRUE}
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
   geom_point(alpha = 0.6, color = "steelblue") +
+  coord_cartesian(ylim = c(0, 2000000))+
   labs(title = "Scatterplot of Sale Price vs. Finished Basement Area (sf)",
        x = "Finished Basement Area (sf)",
        y = "Sale Price")
