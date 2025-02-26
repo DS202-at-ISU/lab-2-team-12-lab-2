@@ -21,26 +21,6 @@ you are done with your submission.
 
 Inspect first few lines of dataset:
 
-``` r
-library(classdata)
-library(ggplot2)
-head(ames)
-```
-
-    ## # A tibble: 6 × 16
-    ##   `Parcel ID` Address      Style Occupancy `Sale Date` `Sale Price` `Multi Sale`
-    ##   <chr>       <chr>        <fct> <fct>     <date>             <dbl> <chr>       
-    ## 1 0903202160  1024 RIDGEW… 1 1/… Single-F… 2022-08-12        181900 <NA>        
-    ## 2 0907428215  4503 TWAIN … 1 St… Condomin… 2022-08-04        127100 <NA>        
-    ## 3 0909428070  2030 MCCART… 1 St… Single-F… 2022-08-15             0 <NA>        
-    ## 4 0923203160  3404 EMERAL… 1 St… Townhouse 2022-08-09        245000 <NA>        
-    ## 5 0520440010  4507 EVERES… <NA>  <NA>      2022-08-03        449664 <NA>        
-    ## 6 0907275030  4512 HEMING… 2 St… Single-F… 2022-08-16        368000 <NA>        
-    ## # ℹ 9 more variables: YearBuilt <dbl>, Acres <dbl>,
-    ## #   `TotalLivingArea (sf)` <dbl>, Bedrooms <dbl>,
-    ## #   `FinishedBsmtArea (sf)` <dbl>, `LotArea(sf)` <dbl>, AC <chr>,
-    ## #   FirePlace <chr>, Neighborhood <fct>
-
 The different variables are Parcel ID, Address, Style, Occupancy, Sale
 Date, Sale Price, Multi Sale (if the sale was a package deal), Year
 Built, Acres, TotalLivingArea (sf), Bedrooms, FinishedBsmtArea (sf),
@@ -114,7 +94,7 @@ ggplot(ames, aes(x = `Sale Price`)) +
   labs(title = "Histogram of Sale Price", x = "Sale Price", y = "Count")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/step3-1.png)<!-- -->
 
 When we look at the summary() function we have:
 
@@ -172,7 +152,7 @@ ggplot(ames, aes(`TotalLivingArea (sf)`)) +
        y = "Count")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 The histogram is skewed right, and there are a lot of plots with no
 living space.
@@ -187,7 +167,7 @@ ggplot(ames, aes(`TotalLivingArea (sf)`, `Sale Price`)) +
        y = "Sale Price")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 It’s hard to see any patterns because of the outliers with a high sale
 price, so I limited the y-axis to remove them.
@@ -203,7 +183,7 @@ ggplot(ames, aes(`TotalLivingArea (sf)`, `Sale Price`)) +
        y = "Sale Price")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Based on the plots above, there is clearly a positive relationship
 between total living area and sale price. There are still multiple
@@ -224,11 +204,12 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
     ## Warning: Removed 2682 rows containing non-finite outside the scale range
     ## (`stat_bin()`).
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/step4-1.png)<!-- -->
 
 ``` r
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
   geom_point(alpha = 0.6, color = "steelblue") +
+  coord_cartesian(ylim = c(0, 2000000))+
   labs(title = "Scatterplot of Sale Price vs. Finished Basement Area (sf)",
        x = "Finished Basement Area (sf)",
        y = "Sale Price")
@@ -237,6 +218,45 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
     ## Warning: Removed 2682 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/step4.1-1.png)<!-- -->
 
-Aiden:
+Most properties cluster under 2,000 square feet of finished basement
+area. Most of the points lie at or near zero sale price, which is
+unusual and may represent non-market transactions, data entry errors, or
+special cases. At the higher end, there are outliers with very large
+basement areas or exceptionally high sale prices that also warrant
+further investigation.
+
+Aiden: Range = 12.01
+
+``` r
+summary(ames$`Acres`)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    ##  0.0000  0.1502  0.2200  0.2631  0.2770 12.0120      89
+
+``` r
+#With outliars and 0's left in
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")
+```
+
+    ## Warning: Removed 89 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+#With outliars and 0's removed (Todo)
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")+
+  coord_cartesian(xlim = c(0, 10), ylim = c(0, 2000000))
+```
+
+    ## Warning: Removed 89 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->

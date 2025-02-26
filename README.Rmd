@@ -20,7 +20,7 @@ All submissions to the github repo will be automatically uploaded for grading on
 
 Inspect first few lines of dataset:
 
-```{r}
+```{r dataset, include = FALSE}
 library(classdata)
 library(ggplot2)
 head(ames)
@@ -30,7 +30,7 @@ The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sal
 
 The type of variable and their data range can be pictured with summary(ames):
 
-```{r}
+```{r data, include = TRUE}
 summary(ames)
 ```
 
@@ -40,7 +40,7 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
-```{r}
+```{r step3, include = TRUE}
 summary(ames$`Sale Price`)
 
 ggplot(ames, aes(x = `Sale Price`)) +
@@ -119,7 +119,7 @@ Based on the plots above, there is clearly a positive relationship between total
 
 Lucas:
 
-```{r}
+```{r step4, include = TRUE}
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
   geom_histogram(binwidth = 100, fill = "lightgreen", color = "black") +
   labs(title = "Histogram of Finished Bsmt Area (sf)",
@@ -127,13 +127,32 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
        y = "Count")
 ```
 
-```{r}
+```{r step4.1, include = TRUE}
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
   geom_point(alpha = 0.6, color = "steelblue") +
+  coord_cartesian(ylim = c(0, 2000000))+
   labs(title = "Scatterplot of Sale Price vs. Finished Basement Area (sf)",
        x = "Finished Basement Area (sf)",
        y = "Sale Price")
 
 ```
 
-Aiden:
+Most properties cluster under 2,000 square feet of finished basement area. Most of the points lie at or near zero sale price, which is unusual and may represent non-market transactions, data entry errors, or special cases. At the higher end, there are outliers with very large basement areas or exceptionally high sale prices that also warrant further investigation.
+
+Aiden: Range = 12.01
+
+```{r}
+summary(ames$`Acres`)
+#With outliars and 0's left in
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")
+```
+```{r}
+#With outliars and 0's removed (Todo)
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")+
+  coord_cartesian(xlim = c(0, 10), ylim = c(0, 2000000))
+```
+
