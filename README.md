@@ -113,11 +113,47 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
 
 ![](README_files/figure-gfm/step4.1-1.png)<!-- -->
 
-Most properties cluster under 2,000 square feet of finished basement
-area. Most of the points lie at or near zero sale price, which is
-unusual and may represent non-market transactions, data entry errors, or
-special cases. At the higher end, there are outliers with very large
-basement areas or exceptionally high sale prices that also warrant
-further investigation.
+\<\<\<\<\<\<\< HEAD Most properties cluster under 2,000 square feet of
+finished basement area. Most of the points lie at or near zero sale
+price, which is unusual and may represent non-market transactions, data
+entry errors, or special cases. At the higher end, there are outliers
+with very large basement areas or exceptionally high sale prices that
+also warrant further investigation.
 
-Aiden:
+# Aiden:
+
+Aiden: Range = 12.01
+
+``` r
+summary(ames$`Acres`)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    ##  0.0000  0.1502  0.2200  0.2631  0.2770 12.0120      89
+
+``` r
+#With outliars and 0's left in
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")
+```
+
+    ## Warning: Removed 89 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+``` r
+#With outliars and 0's removed (Todo)
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")+
+  coord_cartesian(xlim = c(0, 10), ylim = c(0, 2000000))
+```
+
+    ## Warning: Removed 89 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+> > > > > > > 3b9b5cc9aad96aad44d69b6c7021eb1260c47991
