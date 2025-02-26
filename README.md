@@ -23,37 +23,23 @@ Inspect first few lines of dataset:
 
 ``` r
 library(classdata)
+library(ggplot2)
 head(ames)
 ```
 
-    ##    Parcel ID                       Address             Style
-    ## 1 0903202160      1024 RIDGEWOOD AVE, AMES 1 1/2 Story Frame
-    ## 2 0907428215 4503 TWAIN CIR UNIT 105, AMES     1 Story Frame
-    ## 3 0909428070        2030 MCCARTHY RD, AMES     1 Story Frame
-    ## 4 0923203160         3404 EMERALD DR, AMES     1 Story Frame
-    ## 5 0520440010       4507 EVEREST  AVE, AMES              <NA>
-    ## 6 0907275030       4512 HEMINGWAY DR, AMES     2 Story Frame
-    ##                        Occupancy  Sale Date Sale Price Multi Sale YearBuilt
-    ## 1 Single-Family / Owner Occupied 2022-08-12     181900       <NA>      1940
-    ## 2                    Condominium 2022-08-04     127100       <NA>      2006
-    ## 3 Single-Family / Owner Occupied 2022-08-15          0       <NA>      1951
-    ## 4                      Townhouse 2022-08-09     245000       <NA>      1997
-    ## 5                           <NA> 2022-08-03     449664       <NA>        NA
-    ## 6 Single-Family / Owner Occupied 2022-08-16     368000       <NA>      1996
-    ##   Acres TotalLivingArea (sf) Bedrooms FinishedBsmtArea (sf) LotArea(sf)  AC
-    ## 1 0.109                 1030        2                    NA        4740 Yes
-    ## 2 0.027                  771        1                    NA        1181 Yes
-    ## 3 0.321                 1456        3                  1261       14000 Yes
-    ## 4 0.103                 1289        4                   890        4500 Yes
-    ## 5 0.287                   NA       NA                    NA       12493  No
-    ## 6 0.494                 2223        4                    NA       21533 Yes
-    ##   FirePlace              Neighborhood
-    ## 1       Yes       (28) Res: Brookside
-    ## 2        No    (55) Res: Dakota Ridge
-    ## 3        No        (32) Res: Crawford
-    ## 4        No        (31) Res: Mitchell
-    ## 5        No (19) Res: North Ridge Hei
-    ## 6       Yes   (37) Res: College Creek
+    ## # A tibble: 6 × 16
+    ##   `Parcel ID` Address      Style Occupancy `Sale Date` `Sale Price` `Multi Sale`
+    ##   <chr>       <chr>        <fct> <fct>     <date>             <dbl> <chr>       
+    ## 1 0903202160  1024 RIDGEW… 1 1/… Single-F… 2022-08-12        181900 <NA>        
+    ## 2 0907428215  4503 TWAIN … 1 St… Condomin… 2022-08-04        127100 <NA>        
+    ## 3 0909428070  2030 MCCART… 1 St… Single-F… 2022-08-15             0 <NA>        
+    ## 4 0923203160  3404 EMERAL… 1 St… Townhouse 2022-08-09        245000 <NA>        
+    ## 5 0520440010  4507 EVERES… <NA>  <NA>      2022-08-03        449664 <NA>        
+    ## 6 0907275030  4512 HEMING… 2 St… Single-F… 2022-08-16        368000 <NA>        
+    ## # ℹ 9 more variables: YearBuilt <dbl>, Acres <dbl>,
+    ## #   `TotalLivingArea (sf)` <dbl>, Bedrooms <dbl>,
+    ## #   `FinishedBsmtArea (sf)` <dbl>, `LotArea(sf)` <dbl>, AC <chr>,
+    ## #   FirePlace <chr>, Neighborhood <fct>
 
 The different variables are Parcel ID, Address, Style, Occupancy, Sale
 Date, Sale Price, Multi Sale (if the sale was a package deal), Year
@@ -115,15 +101,49 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
-Draw histogram of Sale Price:
+``` r
+summary(ames$`Sale Price`)
+```
+
+    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    ##        0        0   170900  1017479   280000 20500000
 
 ``` r
-library(ggplot2)
-ggplot(ames, aes(`Sale Price`)) +
-  geom_histogram(binwidth = 50000)
+ggplot(ames, aes(x = `Sale Price`)) +
+  geom_histogram(binwidth = 50000, fill = "skyblue", color = "black") +
+  labs(title = "Histogram of Sale Price", x = "Sale Price", y = "Count")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+When we look at the summary() function we have:
+
+Min. 0
+
+1st Qu. 0
+
+Median 170900
+
+Mean 1017479
+
+3rd Qu. 280000
+
+Max. 20500000
+
+This tells us that while most properties fall within a modest range,
+there are some extreme values up to 20.5 million, and notably, a minimum
+of 0, which is unusual for a sales price.
+
+The histogram typically shows a right-skewed distribution. It means that
+most properties are sold at lower prices.
+
+A oddity is that the minimum sale price is 0, and the first quartile is
+also 0. This suggests that a significant number of records have a sale
+price of 0.
+
+It might indicate data entry errors.
+
+These could represent properties transferred without a sale.
 
 ## Step 4
 
@@ -137,5 +157,31 @@ ggplot(ames, aes(`TotalLivingArea (sf)`)) +
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Lucas:
+
+``` r
+ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
+  geom_histogram(binwidth = 100, fill = "lightgreen", color = "black") +
+  labs(title = "Histogram of Finished Bsmt Area (sf)",
+       x = "Finished Bsmt Area (sf)",
+       y = "Count")
+```
+
+    ## Warning: Removed 2682 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot of Sale Price vs. Finished Basement Area (sf)",
+       x = "Finished Basement Area (sf)",
+       y = "Sale Price")
+```
+
+    ## Warning: Removed 2682 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 Aiden:

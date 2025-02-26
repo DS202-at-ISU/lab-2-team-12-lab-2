@@ -4,19 +4,17 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Lab report #1
 
-Follow the instructions posted at https://ds202-at-isu.github.io/labs.html for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
+Follow the instructions posted at <https://ds202-at-isu.github.io/labs.html> for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
 
-Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.  
+Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.
 
-All submissions to the github repo will be automatically uploaded for grading once the due date is passed.
-Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
+All submissions to the github repo will be automatically uploaded for grading once the due date is passed. Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
 
 ## Step 1
 
@@ -24,11 +22,14 @@ Inspect first few lines of dataset:
 
 ```{r}
 library(classdata)
+library(ggplot2)
 head(ames)
 ```
+
 The different variables are Parcel ID, Address, Style, Occupancy, Sale Date, Sale Price, Multi Sale (if the sale was a package deal), Year Built, Acres, TotalLivingArea (sf), Bedrooms, FinishedBsmtArea (sf), LotArea (sf), AC (if the property has AC), FirePlace (if the property has a fireplace), and Neighborhood.
 
 The type of variable and their data range can be pictured with summary(ames):
+
 ```{r}
 summary(ames)
 ```
@@ -39,15 +40,39 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
-Draw histogram of Sale Price:
 ```{r}
-library(ggplot2)
-ggplot(ames, aes(`Sale Price`)) +
-  geom_histogram(binwidth = 50000)
+summary(ames$`Sale Price`)
+
+ggplot(ames, aes(x = `Sale Price`)) +
+  geom_histogram(binwidth = 50000, fill = "skyblue", color = "black") +
+  labs(title = "Histogram of Sale Price", x = "Sale Price", y = "Count")
 ```
 
-## Step 4
+When we look at the summary() function we have:
 
+Min. 0
+
+1st Qu. 0
+
+Median 170900
+
+Mean 1017479
+
+3rd Qu. 280000
+
+Max. 20500000
+
+This tells us that while most properties fall within a modest range, there are some extreme values up to 20.5 million, and notably, a minimum of 0, which is unusual for a sales price.
+
+The histogram typically shows a right-skewed distribution. It means that most properties are sold at lower prices.
+
+A oddity is that the minimum sale price is 0, and the first quartile is also 0. This suggests that a significant number of records have a sale price of 0.
+
+It might indicate data entry errors.
+
+These could represent properties transferred without a sale.
+
+## Step 4
 
 Kylie: TotalLivingArea
 
@@ -57,5 +82,22 @@ ggplot(ames, aes(`TotalLivingArea (sf)`)) +
 ```
 
 Lucas:
+
+```{r}
+ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
+  geom_histogram(binwidth = 100, fill = "lightgreen", color = "black") +
+  labs(title = "Histogram of Finished Bsmt Area (sf)",
+       x = "Finished Bsmt Area (sf)",
+       y = "Count")
+```
+
+```{r}
+ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot of Sale Price vs. Finished Basement Area (sf)",
+       x = "Finished Basement Area (sf)",
+       y = "Sale Price")
+
+```
 
 Aiden:
