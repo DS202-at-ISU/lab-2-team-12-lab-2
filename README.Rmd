@@ -22,7 +22,6 @@ Inspect first few lines of dataset:
 
 ```{r}
 library(classdata)
-library(ggplot2)
 head(ames)
 ```
 
@@ -40,7 +39,7 @@ The variable of interest is Sale Price.
 
 ## Step 3
 
-```{r}
+```{r setup}
 summary(ames$`Sale Price`)
 
 ggplot(ames, aes(x = `Sale Price`)) +
@@ -74,16 +73,11 @@ These could represent properties transferred without a sale.
 
 ## Step 4
 
-Kylie: TotalLivingArea
-
-```{r}
-ggplot(ames, aes(`TotalLivingArea (sf)`)) +
-  geom_histogram(binwidth = 100, na.rm = TRUE)
-```
+Kylie:
 
 Lucas:
 
-```{r}
+```{r setup}
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
   geom_histogram(binwidth = 100, fill = "lightgreen", color = "black") +
   labs(title = "Histogram of Finished Bsmt Area (sf)",
@@ -91,7 +85,7 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`)) +
        y = "Count")
 ```
 
-```{r}
+```{r setup}
 ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
   geom_point(alpha = 0.6, color = "steelblue") +
   labs(title = "Scatterplot of Sale Price vs. Finished Basement Area (sf)",
@@ -99,5 +93,7 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
        y = "Sale Price")
 
 ```
+
+Most properties cluster under 2,000 square feet of finished basement area. Most of the points lie at or near zero sale price, which is unusual and may represent non-market transactions, data entry errors, or special cases. At the higher end, there are outliers with very large basement areas or exceptionally high sale prices that also warrant further investigation.
 
 Aiden:
