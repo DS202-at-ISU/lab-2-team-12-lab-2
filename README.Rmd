@@ -113,7 +113,8 @@ ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
 #With outliars and 0's removed (Todo)
 ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
   geom_point() +
-  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")+
+  coord_cartesian(xlim = c(0, 10), ylim = c(0, 2000000))
 ```
 
 
