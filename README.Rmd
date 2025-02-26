@@ -100,4 +100,20 @@ ggplot(ames, aes(x = `FinishedBsmtArea (sf)`, y = `Sale Price`)) +
 
 ```
 
-Aiden:
+Aiden: Range = 12.01
+
+```{r}
+summary(ames$`Acres`)
+#With outliars and 0's left in
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")
+```
+```{r}
+#With outliars and 0's removed (Todo)
+ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
+  geom_point() +
+  labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")
+```
+
+
