@@ -160,7 +160,7 @@ ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
 ```
 
 ```{r}
-#With outliars and 0's removed (Todo)
+#With some outliars removed
 ggplot(ames, aes(x = Acres, y = `Sale Price`)) +
   geom_point() +
   labs(title = "Sale price vs Acres", x = "Acres", y = "Sale Price")+
